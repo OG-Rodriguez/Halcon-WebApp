@@ -22,3 +22,22 @@ The Halcon Web Application is designed to streamline and automate the internal p
 1. **Clone the Repository**
 
    git clone https://github.com/OG-Rodriguez/Halcon-WebApp.git
+
+
+   ## Changes Made 10/24/2024
+- Created views for user management:
+  - List of users (active and inactive)
+  - User creation
+  - User editing
+  
+- Created views for order management:
+  - List of orders
+  - Order creation
+  - Order update
+  - Status change
+  - View order details
+  - Archived orders management
+  
+## Setup Instructions
+- Run `php artisan migrate` to set up the database.
+- Run `php artisan db:seed` to seed initial data.
