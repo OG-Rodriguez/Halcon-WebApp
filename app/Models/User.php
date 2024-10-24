@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Department;
+
 
 class User extends Authenticatable
 {
@@ -21,6 +23,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id', // Added to handle roles
+        'department_id', // Added to handle departments
+        'status', // Added to handle user status (active/inactive)
     ];
 
     /**
@@ -41,4 +46,40 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Define the relationship with Role.
+     * A user belongs to a role.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Define the relationship with Department.
+     * A user belongs to a department.
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    /**
+     * Define the relationship with Orders.
+     * A user can have many orders.
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Check if the user is active.
+     */
+    public function isActive()
+    {
+        return $this->status === 'active';
+    }
 }
+
