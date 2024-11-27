@@ -36,9 +36,12 @@ class OrderController extends Controller
     }
 
     // Show the form for editing the specified order
-    public function edit(Order $order) {
+    public function edit($id)
+    {
+        $order = Order::findOrFail($id); // Retrieve the order or throw a 404
         return view('orders.edit', compact('order'));
     }
+
 
     // Update the specified order
     public function update(Request $request, Order $order) {
@@ -55,6 +58,14 @@ class OrderController extends Controller
     public function destroy(Order $order) {
         $order->delete(); // You might want to set a deleted_at timestamp for logical deletion
         return redirect()->route('orders.index')->with('success', 'Order deleted successfully.');
+    }
+
+    public function archived()
+    {
+        // Fetch archived orders from the database
+        $archivedOrders = Order::onlyTrashed()->get(); // Assuming you are using soft deletes
+
+        return view('orders.archived', compact('archivedOrders'));
     }
 }
 

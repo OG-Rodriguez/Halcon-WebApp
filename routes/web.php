@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     
     // Invoice routes
     Route::resource('invoices', InvoiceController::class);
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
 
     // Archived orders
     Route::get('/archived-orders', [OrderController::class, 'archived'])->name('orders.archived');

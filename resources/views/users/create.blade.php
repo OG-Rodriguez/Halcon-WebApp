@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
+    <title>Create User</title>
 </head>
 <body>
-    <h1>Edit User</h1>
-    <form action="{{ route('users.update', $user->id) }}" method="POST">
+    <h1>Create New User</h1>
+    <form action="{{ route('users.store') }}" method="POST">
         @csrf
-        @method('PUT')
-        <input type="text" name="name" value="{{ $user->name }}" required>
-        <input type="email" name="email" value="{{ $user->email }}" required>
-        <select name="role_id" required>
-            <option value="">Select Role</option>
-            @foreach($roles as $role)
-                <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
-            @endforeach
-        </select>
-        <label>
-            <input type="checkbox" name="is_active" {{ $user->is_active ? 'checked' : '' }}> Active
-        </label>
-        <button type="submit">Update User</button>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div>
+            <label for="role_id">Role:</label>
+            <select name="role_id" id="role_id" required>
+                <option value="">Select Role</option>
+                @foreach($roles as $role)
+                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <button type="submit">Create User</button>
     </form>
 </body>
 </html>
